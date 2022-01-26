@@ -73,6 +73,7 @@
         },
         {
             "name": "psr/container",
+<<<<<<< HEAD
             "version": "2.0.2",
             "source": {
                 "type": "git",
@@ -87,6 +88,22 @@
             },
             "require": {
                 "php": ">=7.4.0"
+=======
+            "version": "2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/container.git",
+                "reference": "2ae37329ee82f91efadc282cc2d527fd6065a5ef"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/container/zipball/2ae37329ee82f91efadc282cc2d527fd6065a5ef",
+                "reference": "2ae37329ee82f91efadc282cc2d527fd6065a5ef",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.0"
+>>>>>>> 42f58804df3f158f20796dde955eb9ab60018c38
             },
             "type": "library",
             "extra": {
@@ -120,9 +137,15 @@
             ],
             "support": {
                 "issues": "https://github.com/php-fig/container/issues",
+<<<<<<< HEAD
                 "source": "https://github.com/php-fig/container/tree/2.0.2"
             },
             "time": "2021-11-05T16:47:00+00:00"
+=======
+                "source": "https://github.com/php-fig/container/tree/2.0.1"
+            },
+            "time": "2021-03-24T13:40:57+00:00"
+>>>>>>> 42f58804df3f158f20796dde955eb9ab60018c38
         },
         {
             "name": "symfony/deprecation-contracts",

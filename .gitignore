@@ -1,3 +1,7 @@
 datas/pdo_1.mwb.bak
+<<<<<<< HEAD
 # on ne met jamais le vendor ( bibliothéque externe, inutiles a mettre sur github)
+=======
+# on ne met jamais le vendor (bibliothèques externes inutiles à mettre sur github)
+>>>>>>> 42f58804df3f158f20796dde955eb9ab60018c38
 vendor/
