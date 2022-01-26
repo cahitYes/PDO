@@ -346,10 +346,10 @@ Ainsi, par exemple:
 
     $connexion = @new PDO($PARAM_DB.':host='.$PARAM_HOST.';port='.$PARAM_PORT.';
     dbname='.$PARAM_DBNAME;charset=’.$PARAM_CHARSET.’, $PARAM_USER, $PARAM_PWD, array(
-    PDO::ATTR_PERSISTENT => true
+        PDO::ATTR_PERSISTENT => true
     ));
 
-**// !!! LE $connexion->setAttribute ne fonctionne pas la plupart du temps pour mettre
+**!!! LE $connexion->setAttribute ne fonctionne pas la plupart du temps pour mettre
 une connexion en “permanente”, il faut donc le faire au moment de la connexion.**
 
 On obtient une connexion permanente en passant après le mot de passe un tableau
@@ -480,4 +480,6 @@ Tutoriel complet sur la PDO de developpez.com
 http://fmaz.developpez.com/tutoriels/php/comprendre-pdo/
 
 
-CF2m - Pitz Michaël - 2022
+
+
+#### CF2m - Pitz Michaël - 2022
