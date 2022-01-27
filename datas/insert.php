@@ -136,15 +136,16 @@ echo "<br>" . $faker->text();
                 </tr>
             <?php
             endwhile;
-            exit();
             ?>
 
         </tbody>
     </table>
+    <?php
     // thearticle
     $req = $connexion->prepare("INSERT INTO thearticle VALUES (NULL, ?, ?, ?, ?) ; ");
 
-    for ($i = 0; $i < 300; $i++) { $thearticletitle=$faker->text($maxNbChars = 160);;
+    for ($i = 0; $i < 300; $i++) {
+        $thearticletitle = $faker->text($maxNbChars = 160);
         $thearticletext = $faker->text();
         $thearticledate = date("Y-m-d H:i:s", $faker->unixTime());
         // sélection d'un id usitilsateur existant
@@ -160,23 +161,87 @@ echo "<br>" . $faker->text();
 
         // exécution
         $req->execute();
-        }
+    }
+    // récupération des utilisateurs
+    $articles = $connexion->query("SELECT * FROM thearticle ORDER BY idthearticle ASC;");
+    ?>
+    <h3>Table thearticle (<?= $users->rowCount() ?>)</h3>
+    <table border=1>
+        <thead>
+            <tr>
+                <th>idthearticle</th>
+                <th>thearticletitle</th>
+                <th>thearticletext</th>
+                <th>thearticledate</th>
+                <th>theuser_idtheuser</th>
+            </tr>
+        </thead>
+        <tbody>
 
-        // thearticle_has_thesection
-        $req = $connexion->prepare("INSERT INTO thearticle_has_thesection VALUES (?, ?) ; ");
-
-        for ($i = 0; $i < 800; $i++) { $thearticle_idthearticle=$faker->numberBetween(1, 200);
-            $thesection_idthesection = $faker->numberBetween(1, 14);
-
-            $req->bindParam(1, $thearticle_idthearticle, PDO::PARAM_INT);
-            $req->bindParam(2, $thesection_idthesection, PDO::PARAM_INT);
-
-
-
-            // exécution
-            $req->execute();
-            }
+            <?php
+            while ($item = $articles->fetch(PDO::FETCH_OBJ)) :
             ?>
+                <tr>
+                    <td><?= $item->idthearticle ?></td>
+                    <td><?= $item->thearticletitle ?></td>
+                    <td><?= $item->thearticletext ?></td>
+                    <td><?= $item->thearticledate ?></td>
+                    <td><?= $item->theuser_idtheuser ?></td>
+                </tr>
+            <?php
+            endwhile;
+            exit();
+            ?>
+
+        </tbody>
+    </table>
+    <?php
+    // thearticle_has_thesection
+    $req = $connexion->prepare("INSERT INTO thearticle_has_thesection VALUES (?, ?) ; ");
+
+    for ($i = 0; $i < 800; $i++) {
+        $thearticle_idthearticle = $faker->numberBetween(1, 200);
+        // sélection d'un id article existant
+        $user = $connexion->query("SELECT thearticle FROM theuser ORDER BY RAND() LIMIT 1");
+        $userid = $user->fetch(PDO::FETCH_OBJ);
+        $thearticle_idthearticle = $userid->thearticle_idthearticle;
+        $thesection_idthesection = $faker->numberBetween(1, 14);
+
+        $req->bindParam(1, $thearticle_idthearticle, PDO::PARAM_INT);
+        $req->bindParam(2, $thesection_idthesection, PDO::PARAM_INT);
+
+
+
+        // exécution
+        $req->execute();
+    }
+
+    // récupération des liens articles - sections
+    $has = $connexion->query("SELECT * FROM thearticle_has_thesection ORDER BY thesection_idthesection ASC;");
+    ?>
+    <h3>Table thearticle_has_thesection (<?= $has->rowCount() ?>)</h3>
+    <table border=1>
+        <thead>
+            <tr>
+                <th>thearticle_idthearticle</th>
+                <th>thesection_idthesection</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <?php
+            while ($item = $has->fetch(PDO::FETCH_OBJ)) :
+            ?>
+                <tr>
+                    <td><?= $item->thearticle_idthearticle ?></td>
+                    <td><?= $item->thesection_idthesection ?></td>
+                </tr>
+            <?php
+            endwhile;
+            ?>
+
+        </tbody>
+    </table>
 </body>
 
 </html>
