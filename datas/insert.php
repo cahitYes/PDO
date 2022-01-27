@@ -60,9 +60,13 @@ echo "<br>" . $faker->text();
         $req->bindParam(1, $thesectiontitle, PDO::PARAM_STR);
         $req->bindParam(2, $thesectiondesc, PDO::PARAM_STR);
 
-
-        // exécution
-        $req->execute();
+        try {
+            // exécution
+            $req->execute();
+        } catch (Exception $e) {
+            echo $e->getMessage();
+            continue;
+        }
     }
 
     // récupération des sections
@@ -108,8 +112,13 @@ echo "<br>" . $faker->text();
         $req->bindParam(2, $theusername, PDO::PARAM_STR);
 
 
-        // exécution
-        $req->execute();
+        try {
+            // exécution
+            $req->execute();
+        } catch (Exception $e) {
+            echo $e->getMessage();
+            continue;
+        }
     }
 
     // récupération des utilisateurs
@@ -159,8 +168,13 @@ echo "<br>" . $faker->text();
         $req->bindParam(4, $theuser_idtheuser, PDO::PARAM_INT);
 
 
-        // exécution
-        $req->execute();
+        try {
+            // exécution
+            $req->execute();
+        } catch (Exception $e) {
+            echo $e->getMessage();
+            continue;
+        }
     }
     // récupération des utilisateurs
     $articles = $connexion->query("SELECT * FROM thearticle ORDER BY idthearticle ASC;");
@@ -190,7 +204,7 @@ echo "<br>" . $faker->text();
                 </tr>
             <?php
             endwhile;
-            exit();
+            // exit();
             ?>
 
         </tbody>
@@ -200,24 +214,32 @@ echo "<br>" . $faker->text();
     $req = $connexion->prepare("INSERT INTO thearticle_has_thesection VALUES (?, ?) ; ");
 
     for ($i = 0; $i < 800; $i++) {
-        $thearticle_idthearticle = $faker->numberBetween(1, 200);
+
         // sélection d'un id article existant
-        $user = $connexion->query("SELECT thearticle FROM theuser ORDER BY RAND() LIMIT 1");
-        $userid = $user->fetch(PDO::FETCH_OBJ);
-        $thearticle_idthearticle = $userid->thearticle_idthearticle;
-        $thesection_idthesection = $faker->numberBetween(1, 14);
+        $article = $connexion->query("SELECT idthearticle FROM thearticle ORDER BY RAND() LIMIT 1");
+        $articleid = $article->fetch(PDO::FETCH_OBJ);
+        $thearticle_idthearticle = $articleid->idthearticle;
+
+        $section = $connexion->query("SELECT idthesection FROM thesection ORDER BY RAND() LIMIT 1");
+        $sectionid = $section->fetch(PDO::FETCH_OBJ);
+        $thesection_idthesection = $sectionid->idthesection;
 
         $req->bindParam(1, $thearticle_idthearticle, PDO::PARAM_INT);
         $req->bindParam(2, $thesection_idthesection, PDO::PARAM_INT);
 
 
 
-        // exécution
-        $req->execute();
+        try {
+            // exécution
+            $req->execute();
+        } catch (Exception $e) {
+            echo $e->getMessage();
+            continue;
+        }
     }
 
     // récupération des liens articles - sections
-    $has = $connexion->query("SELECT * FROM thearticle_has_thesection ORDER BY thesection_idthesection ASC;");
+    $has = $connexion->query("SELECT * FROM thearticle_has_thesection ORDER BY thearticle_idthearticle ASC;");
     ?>
     <h3>Table thearticle_has_thesection (<?= $has->rowCount() ?>)</h3>
     <table border=1>

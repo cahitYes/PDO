@@ -1,5 +1,11 @@
 ## Installation
 
+Importez en MariaDB sur wamp le fichier `datas\pdo_1_structure_datas.sql` en désactivant les clefs étrangères.
+
+## Fakerphp/faker
+
+Si vous souhaitez utiliser cet outil de génération de données (optionnel, la DB `pdo_1` étant prête à être manipulée)
+
 Installez d'abord composer :
 
 https://getcomposer.org/download/
@@ -11,6 +17,10 @@ Puis dans l'invite de commande, installez les packages externes (création du do
 Nous avons utilisé `fakerphp/faker` pour remplir nos bases de données.
 
 Documentation : https://fakerphp.github.io/
+
+Pour générer de nouvelles entrées dans `pdo_1` :
+
+Lancez `datas\insert.php`
 
 ## Documentation
 
