@@ -8,7 +8,7 @@ Puis dans l'invite de commande, installez les packages externes (création du do
 
     composer install
 
-Nous avons utiliser `fakerphp/faker` pour remplir nos base de données.
+Nous avons utilisé `fakerphp/faker` pour remplir nos bases de données.
 
 Documentation : https://fakerphp.github.io/
 
