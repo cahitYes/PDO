@@ -67,25 +67,26 @@ requêtes évidemment !).
 
     // connexion
     $connexion = new
-    PDO($PARAM_DB.':host='.$PARAM_HOST.';port='.$PARAM_PORT.';dbname='. $PARAM_DBNAME;charse
-    t=’.$PARAM_CHARSET.’ , $PARAM_USER, $PARAM_PWD);
+    PDO($PARAM_DB.':host='.$PARAM_HOST.';port='.$PARAM_PORT.';dbname='. $PARAM_DBNAME.';charse
+    t='.$PARAM_CHARSET , $PARAM_USER, $PARAM_PWD);
     ?>
 
 ## Gestion des erreurs
 
-Vous pouvez avoir une erreur pour plusieurs raisons ; vous avez donné de mauvais paramètres, ou
+Vous pouvez avoir une erreur pour plusieurs raisons : vous avez donné de mauvais paramètres, ou
 vous avez spécifié des paramètres qui ne correspondent pas au driver que vous souhaitez utiliser.
-Afin de savoir d'où vient le problème, le mieux est encore d'afficher 'proprement' les erreurs qui peuvent
-apparaître.
+Afin de savoir d'où vient le problème, le mieux est encore d'afficher 'proprement' les erreurs qui peuvent apparaître.
+
 Nous allons utiliser try - catch pour cela.
 
     <?php
     try
     {
         $connexion = new
-    PDO($PARAM_DB.':host='.$PARAM_HOST.';port='.$PARAM_PORT.';dbname='.$PARAM_DBNAME;charse
-    t=’.$PARAM_CHARSET.’, $PARAM_USER, $PARAM_PWD);
-        // activation de l’affichage des erreurs
+    PDO($PARAM_DB.':host='.$PARAM_HOST.';port='.$PARAM_PORT.';dbname='.$PARAM_DBNAME.';charse
+    t='.$PARAM_CHARSET, $PARAM_USER, $PARAM_PWD);
+
+        // activation de l'affichage des erreurs POUR les requêtes SQL (pas pour les erreurs de connexion)
         $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
     catch(PDOException $e) // vous pouvez utiliser catch(Exception $e), qui gère également
@@ -106,7 +107,7 @@ aussi d'effectuer des changements (qui peuvent prendre la forme d'ajout, suppres
 modification).
 
 Si vous souhaitez récupérer une information (SELECT), vous devrez alors utiliser 'query' ;
-si c'est pour un apporter des changements (INSERT, UPDATE, DELETE) à la BDD, vous
+si c'est pour apporter des changements (INSERT, UPDATE, DELETE) à la BDD, vous
 devrez utiliser 'exec'.
 
 ### Un simple UPDATE:
@@ -224,13 +225,15 @@ requête préparée
     // variables de test
     $an = 1985;
     $lettres = "%comme%";
+
     // préparation de la requête avec des emplacements nommés
     $req = $connexion->prepare("SELECT * FROM tabletest WHERE naissance < :annee AND
     lemessage LIKE :lettres ; ");
+
     // attribution après vérification de variables aux emplacements avec bindParam()
     $req->bindParam(':annee',$an,PDO::PARAM_INT); // doit être un entier
-    $req->bindParam(':lettres',$lettres,PDO::PARAM_STR);// doit être une chaîne de
-    caractère
+    $req->bindParam(':lettres',$lettres,PDO::PARAM_STR);// doit être une chaîne de caractère
+
     // exécution de celle-ci
     $req->execute();
     while($row = $req->fetch(PDO::FETCH_OBJ)){
