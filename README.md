@@ -20,7 +20,7 @@ Documentation : https://fakerphp.github.io/
 
 Pour générer de nouvelles entrées dans `pdo_1` :
 
-Lancez `datas\insert.php`
+Lancez `datas\insert-pdo_1.php`
 
 ## Documentation
 
