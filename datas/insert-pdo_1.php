@@ -179,7 +179,7 @@ echo "<br>" . $faker->text();
     // récupération des utilisateurs
     $articles = $connexion->query("SELECT * FROM thearticle ORDER BY idthearticle ASC;");
     ?>
-    <h3>Table thearticle (<?= $users->rowCount() ?>)</h3>
+    <h3>Table thearticle (<?= $articles->rowCount() ?>)</h3>
     <table border=1>
         <thead>
             <tr>
