@@ -36,7 +36,7 @@ require_once "05-connectPDO.php";
         // insertion dans une table qui n'existe pas !!!!
         $db->exec("INSERT INTO tutu ('yes','youpie')");
     } catch (Exception $e) {
-
+        // affichage d'une erreur personnalisée
         echo ('La table tutu n\'existe pas');
     }
 
