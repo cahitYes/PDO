@@ -52,6 +52,7 @@ require_once "05-connectPDO.php";
     }
     // on ferme le curseur des résultats, inutile pour mysql mais nécessaire pour la portabilité du code
     $queryArticles->closeCursor();
+    // curseur fermé ou pas, $queryArticles est vide et la requête doit être réeffectuée
     while ($article = $queryArticles->fetch()) {
         echo $article['thearticletitle'] . " |- ";
     }
@@ -69,7 +70,7 @@ require_once "05-connectPDO.php";
     ?>
     <h4>Nous avons <?= $nbArticles ?> articles </h4>
     <?php
-    // identique mais avec l'application du format dans le fetch
+    // utilisation du foreach sur le fetchAll
     foreach ($articles as $article) {
         echo $article['thearticletitle'] . " | ";
     }
@@ -79,7 +80,26 @@ require_once "05-connectPDO.php";
     foreach ($articles as $article) {
         echo $article['thearticletitle'] . " | ";
     }
+    echo "<hr><h4>fetchAll en objet</h4>";
+
+    $sql = "SELECT * FROM thearticle WHERE idthearticle <= 10 ORDER BY idthearticle DESC";
+    // exécution de la requête
+    $queryArticles = $db->query($sql);
+    // on veut compter le nombre de résultats
+    $nbArticles = $queryArticles->rowCount();
+    // transformé en "objet"
+    $articles = $queryArticles->fetchAll(PDO::FETCH_OBJ);
+    $queryArticles->closeCursor();
+
     ?>
+    <h4>Nous avons <?= $nbArticles ?> articles </h4>
+    <?php
+    // utilisation du foreach sur le fetchAll
+    foreach ($articles as $article) {
+        echo $article->thearticletitle . " | " . $article->thearticledate . "<br>";
+    }
+    ?>
+
 </body>
 
 </html>
