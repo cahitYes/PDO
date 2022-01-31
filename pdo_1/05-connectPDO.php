@@ -1,5 +1,5 @@
 <?php
-// chargement des dépendances
+// normalement pas nécessaire car ce fichier est déjà appelé dans nos pages, mais le 'once' retire tout risques de conflict et permet de tester la connexion dpuis ce fichier
 require_once "01-config.php";
 
 // tentative de connexion ... Essai
@@ -17,30 +17,3 @@ try {
     // arrêt du script en cas d'erreur de connexion exit ou die
     exit("<h3>Site en maintenance</h3>");
 }
-
-?>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Problèmes de requêtes</title>
-</head>
-
-<body>
-    <h3>Problèmes de requêtes</h3>
-    <p>Si on a pas d'erreurs de connexion, on voit cette page s'afficher</p>
-    <?php
-    // insertion dans une table qui n'existe pas !!!!
-    // aucune erreur affichée, il faut activer le setAttribute juste après la connexion, et on verra donc une erreur (débugage)
-    $db->exec("INSERT INTO tata ('yes','youpie')");
-
-
-    // bonne pratique (sauf si connexion permanante), fermeture de la connexion
-    $db = null;
-    ?>
-</body>
-
-</html>
