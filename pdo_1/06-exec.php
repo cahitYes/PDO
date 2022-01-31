@@ -17,28 +17,25 @@ require_once "05-connectPDO.php";
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Problèmes de requêtes</title>
+    <title>Exec</title>
 </head>
 
 <body>
-    <h3>Problèmes de requêtes</h3>
-    <p>Si on a pas d'erreurs de connexion, on voit cette page s'afficher</p>
+    <h3>Exec</h3>
+    <p>$connexion->exec("sql") Pour Creat, update ou delete</p>
+    <h4>INSERT</h4>
     <?php
     try {
-        // insertion dans une table qui n'existe pas !!!!
-        $db->exec("INSERT INTO tata ('yes','youpie')");
+        // insertion non unique
+        $nbInsert = $db->exec("INSERT INTO theuser (theuserlogin,theusername) VALUES ('youpie','steve')");
     } catch (Exception $e) {
         // erreurs par défauts
         echo "Erreur ligne {$e->getLine()} du fichier {$e->getFile()} : <br> Code : {$e->getCode()} <br> Message : {$e->getMessage()}<hr>";
+        die();
     }
-
-    try {
-        // insertion dans une table qui n'existe pas !!!!
-        $db->exec("INSERT INTO tutu ('yes','youpie')");
-    } catch (Exception $e) {
-        // affichage d'une erreur personnalisée
-        echo ('La table tutu n\'existe pas');
-    }
+    ?>
+    <p><?= $nbInsert ?> entrée insérée</p>
+    <?php
 
 
 
