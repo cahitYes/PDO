@@ -4,18 +4,12 @@ require_once "01-config.php";
 
 // tentative de connexion ... Essai
 try {
-    // création d'une connexion sans attributs (options)
-    $db = new PDO(DB_TYPE . ':host=' . DB_HOST . ';dbname=' . DB_NAME . ';port=' . DB_PORT . ';charset=' . DB_CHARSET, DB_LOGIN, DB_PWD);
+    // création d'une connexion avec les options de connexions dans un tableau en dernière position du la méthode (constructeur de PDO)
+    $db = new PDO(DB_TYPE . ':host=' . DB_HOST . ';dbname=' . DB_NAME . ';port=' . DB_PORT . ';charset=' . DB_CHARSET, DB_LOGIN, DB_PWD, [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+    ]);
 
-
-    /*
-    utilisation de setAttribute() pour remplir (ou changer) les options de connexions
-    */
-
-    // activation de l'affichage des erreurs POUR les requêtes SQL (pas pour les erreurs de connexion)
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    // pour l'activation du fetch mode par défaut en tableau associatif en ASSOC
-    $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
     // Sinon on a une erreur, on capture l'erreur  dans $e en utilisant la classe native PDOexception ou de préférence Exception (elles sont liées dans l'installation de PHP)   
 } catch (Exception $e) {
