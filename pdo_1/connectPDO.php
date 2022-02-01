@@ -7,7 +7,6 @@ try {
     // création d'une connexion sans attributs (options)
     $db = new PDO(DB_TYPE . ':host=' . DB_HOST . ';dbname=' . DB_NAME . ';port=' . DB_PORT . ';charset=' . DB_CHARSET, DB_LOGIN, DB_PWD);
 
-
     /*
     utilisation de setAttribute() pour remplir (ou changer) les options de connexions
     */
