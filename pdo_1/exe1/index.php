@@ -8,3 +8,8 @@
 /**
  * Connexion PDO
  */
+
+
+/**
+ * Routeur (index.php est l'unique contrôleur)
+ */
