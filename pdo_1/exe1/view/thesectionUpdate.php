@@ -14,12 +14,19 @@
         <a href="./">Accueil</a> | <a href="./?add">Ajouter une section</a>
     </nav>
     <hr>
+    <?php
+    if (isset($error)) :
+    ?>
+        <h3>Erreur lors de l'insertion, veuillez recommencer</h3>
+    <?php
+    endif;
+    ?>
     <form name="updatethesection" method="POST" action="">
         <p>
-            <label for="thesectiontitle">thesectiontitle:</label> <input type="text" id="thesectiontitle" name="thesectiontitle" value="ici le titre" maxlength="70" required>
+            <label for="thesectiontitle">thesectiontitle:</label> <input type="text" id="thesectiontitle" name="thesectiontitle" value="ici le titre à modifier" maxlength="70" required>
         </p>
         <p>
-            <label for="thesectiondesc">thesectiondesc:</label> <textarea id="thesectiondesc" name="thesectiondesc" maxlength="240" required>ici le texte</textarea>
+            <label for="thesectiondesc">thesectiondesc:</label> <textarea id="thesectiondesc" name="thesectiondesc" maxlength="240" required>ici le texte à modifier</textarea>
         </p>
         <p>
             <label for="thesectiondesc">Modifier :</label> <input type="submit" value="modifier" />
