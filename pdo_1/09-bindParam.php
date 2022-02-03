@@ -40,6 +40,16 @@ require_once "connectPDO.php";
 
     // transformation en tableau indexé (fetchAll) contenant des (pseudo) objets
     $result1 = $prepare1->fetchAll(PDO::FETCH_OBJ);
+
+    // on peut répéter autant de X l'exécute sans redéclarer la préparation de requête:
+    $begin = 50;
+    $end = 60;
+    $prepare1->execute(); // prend entre 50 et 60
+
+    $begin = 18;
+    $end = 22;
+    $prepare1->execute(); // prend entre 18 et 22
+
     </pre>
     <?php
     // préparation de la requête
@@ -79,6 +89,8 @@ require_once "connectPDO.php";
 
 
     <?php
+    $begin = 50;
+    $end = 60;
     // valeurs qui sont déjà liées à prepare1
     $prepare1->execute();
     $nb2 = $prepare1->rowCount();
