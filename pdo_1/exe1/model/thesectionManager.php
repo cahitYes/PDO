@@ -15,6 +15,8 @@ function thesectionSelectAll(PDO $con): array
     return [];
 }
 
+
+
 /**
  * Fonction qui sélectionne tous les champs de la table `thesection` 
  * quand l'idthesection vaut $id et qui renvoie un tableau vide si pas de résultats,
@@ -30,6 +32,8 @@ function thesectionSelectOneById(PDO $con, int $id): array
     // doit renvoyer un tableau si pas de résultats
     return [];
 }
+
+
 
 /**
  * Fonction qui insert 2 champs dans la table `thesection` 
@@ -68,5 +72,24 @@ function thesectionInsert(PDO $con, string $title, string $desc): bool
 function thesectionUpdate(PDO $con, int $id, string $title, string $desc): bool
 {
     // doit renvoyer false si l'update échoue
+    return false;
+}
+
+
+
+/**
+ * Fonction qui delete une entrée dans la table `thesection` quand l'id correspond
+ * Si le delete échoue, envoyer false 
+ * En cas de réussite, envoyer true
+ * Cette requête DOIT être préparée. try catch nécessaire!
+ * Mais le catch ne renvoie que false
+ * 
+ * @param \PDO $con
+ * @param int $id
+ * @return bool
+ */
+function thesectionDelete(PDO $con, int $id): bool
+{
+    // doit renvoyer false si le delete échoue
     return false;
 }

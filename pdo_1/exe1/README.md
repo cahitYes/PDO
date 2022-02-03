@@ -14,5 +14,7 @@
     - **Si le formulaire POST est envoyé** : Appeler la fonction `thesectionInsert` en passant le titre et la description, puis rediriger sur l'accueil en cas de succès, ou afficher une erreur au dessus du formulaire en cas d'échec (pas de détail, existence de `$error`)
   - **Variable get `update`** : Appeler la fonction `thesectionSelectOneById` en passant l'id, puis charger `view\thesectionUpdate.php` et afficher les 3 valeurs dans le formulaire.
     - **Si le formulaire POST est envoyé** : Appeler la fonction `thesectionUpdate` en passant l'id, le titre et la description, puis rediriger sur l'accueil en cas de modification, ou afficher une erreur au dessus du formulaire en cas d'échec (pas de détail, existence de `$error`)
+  - **Variable get `delete`** : Appeler la fonction `thesectionSelectOneById` en passant l'id, puis charger `view\thesectionDelete.php` et afficher l'id et le titre de la section.
+    - **Si on clique sur supprimer** (existence de la variable get `confirm`) : Appeler la fonction `thesectionDelete` en passant l'id, puis rediriger sur l'accueil en cas de suppression, ou afficher une erreur en cas d'échec (pas de détail, existence de `$error`)
 
 - Modifier `thesectionSelectAll` dans `model\thesectionManager.php` pour récupérer toutes les sections ordonnées par `thesectiontitle` ascendant dans un tableau indexé contenant des **tableaux associatifs**. Cette requête ne doit pas être préparée. `try catch` non nécessaire.
