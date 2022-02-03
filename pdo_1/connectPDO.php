@@ -4,7 +4,7 @@ require_once "01-config.php";
 
 // tentative de connexion ... Essai
 try {
-    // création d'une connexion sans attributs (options)
+    // création (instanciation de PDO) d'une connexion sans attributs (options) 
     $db = new PDO(DB_TYPE . ':host=' . DB_HOST . ';dbname=' . DB_NAME . ';port=' . DB_PORT . ';charset=' . DB_CHARSET, DB_LOGIN, DB_PWD);
 
     /*

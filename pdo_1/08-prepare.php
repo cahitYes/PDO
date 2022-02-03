@@ -95,9 +95,17 @@ $exe3 = $prepare3->fetchAll(PDO::FETCH_ASSOC);
 $prepare3->closeCursor();
 
 /**
- * exe4 ON EST ICI
+ * exe4 - le bindParam garde la requête en cache et permet, avec la modification des variables (liées par référence) de n'exécuter que l' execute() pour exécuter à nouveau la requête 
  */
 
+// paramètres par défauts
+$begin = 1;
+$end = 3;
+// exécution
+$prepare3->execute();
+$nbExe4 = $prepare3->rowCount();
+$exe4 = $prepare3->fetchAll(PDO::FETCH_ASSOC);
+$prepare3->closeCursor();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -151,6 +159,18 @@ $prepare3->closeCursor();
     <p>
         <?php
         foreach ($exe3 as $item) :
+        ?>
+            <?= $item['thesectiontitle'] ?><br>
+        <?php
+        endforeach;
+        ?>
+    </p>
+    <h3>Exemple 4</h3>
+    <p>Avec le passage d'arguments avec des marqueurs non nommés (? et ?) et l'attribution des valeurs avec bindParam, qui permet de mettre en cache la requête et la rappeler qu'avec son execute en changeant les variables liées</p>
+    <h5>Nombre de section : <?= $nbExe4 ?></h5>
+    <p>
+        <?php
+        foreach ($exe4 as $item) :
         ?>
             <?= $item['thesectiontitle'] ?><br>
         <?php
