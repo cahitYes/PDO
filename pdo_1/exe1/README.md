@@ -10,10 +10,15 @@
 - Créer un routeur dans `index.php` (unique contrôleur de cet exercice) :
 
   - **Pas de variables get** : Appeler la fonction `thesectionSelectAll` dans une variable, puis charger `view\thesectionHomePage.php` pour afficher toutes les sections.
+
   - **Variable get `add`** : charger `view\thesectionAdd.php`
+
     - **Si le formulaire POST est envoyé** : Appeler la fonction `thesectionInsert` en passant le titre et la description (**protégés!**), puis rediriger sur l'accueil en cas de succès, ou afficher une erreur au dessus du formulaire en cas d'échec (pas de détail, existence de `$error`)
+
   - **Variable get `update`** : Appeler la fonction `thesectionSelectOneById` en passant l'id, puis charger `view\thesectionUpdate.php` et afficher les 3 valeurs dans le formulaire. **! Si le format de `update` est faux ou la section n'existe pas, chargez `view\thesection404.php`**
+
     - **Si le formulaire POST est envoyé** : Appeler la fonction `thesectionUpdate` en passant l'id, le titre et la description (**protégés!**), puis rediriger sur l'accueil en cas de modification, ou afficher une erreur au dessus du formulaire en cas d'échec (pas de détail, existence de `$error`) **! Si le format de `update` est faux ou la section n'existe pas, chargez `view\thesection404.php`**
+
   - **Variable get `delete`** : Appeler la fonction `thesectionSelectOneById` en passant l'id, puis charger `view\thesectionDelete.php` et afficher l'id et le titre de la section. **! Si le format de `delete` est faux ou la section n'existe pas, chargez `view\thesection404.php`**
     - **Si on clique sur supprimer** (existence de la variable get `confirm`) : Appeler la fonction `thesectionDelete` en passant l'id, puis rediriger sur l'accueil en cas de suppression, ou afficher une erreur en cas d'échec (pas de détail, existence de `$error`) **! Si le format de `delete` est faux ou la section n'existe pas, chargez `view\thesection404.php`**
 
