@@ -3,11 +3,12 @@
 ## Sur la base de donnée pdo_1
 
 - Remplir `config.php` avec les constantes nécessaires à la connexion PDO à la base de donnée `pdo_1`
+
+### dans index.php
+
 - Charger `config.php` dans `index.php`
 - Charger `model\thesectionManager.php`
 - Créer (instancier) une connexion PDO avec le `try catch` et les erreurs activées dans `index.php`
-
-### dans index.php
 
 - Créer un routeur dans `index.php` (unique contrôleur de cet exercice) :
 
