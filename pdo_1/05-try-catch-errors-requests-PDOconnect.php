@@ -41,7 +41,6 @@ require_once "05-connectPDO.php";
     }
 
 
-
     // bonne pratique (sauf si connexion permanante), fermeture de la connexion
     $db = null;
     ?>
