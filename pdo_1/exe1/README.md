@@ -29,13 +29,13 @@
 
 - Modifier `thesectionSelectAll` dans `model\thesectionManager.php` pour récupérer toutes les sections ordonnées par `thesectiontitle` ascendant dans un tableau indexé contenant des **tableaux associatifs**. Cette requête ne doit pas être préparée. `try catch` non nécessaire.
 
-- Modifier `thesectionSelectOneById` dans `model\thesectionManager.php` pour récupérer tous les champs de la table `thesection` grâce à son id dans un **tableau associatif**. En cas d'erreur renvoie un tableau vide. Cette requête DOIT être préparée. `try catch` nécessaire.
+- Modifier `thesectionSelectOneById` dans `model\thesectionManager.php` pour récupérer tous les champs de la table `thesection` grâce à son id dans un **tableau associatif**. En cas d'erreur ou pas d'article sélectionné renvoie un tableau vide. Cette requête DOIT être préparée. `try catch` nécessaire.
 
 - Modifier `thesectionInsert` dans `model\thesectionManager.php` pour insérer 2 champs dans la table `thesection` (1 ligne). En cas d'erreur envoie false . En cas de succès envoie true. Cette requête DOIT être préparée. `try catch` nécessaire.
 
-- Modifier `thesectionUpdate` dans `model\thesectionManager.php` pour modifier le titre et la description dans la table `thesection` grâce à l'ID. En cas d'erreur envoie false . En cas de succès envoie true. Cette requête DOIT être préparée. `try catch` nécessaire.
+- Modifier `thesectionUpdate` dans `model\thesectionManager.php` pour modifier le titre et la description dans la table `thesection` grâce à l'ID. En cas d'erreur ou pas d'article modifié envoie false . En cas de succès envoie true. Cette requête DOIT être préparée. `try catch` nécessaire.
 
-- Modifier `thesectionDelete` dans `model\thesectionManager.php` pour supprimer une entrée dans la table `thesection` grâce à l'ID. En cas d'erreur envoie false . En cas de succès envoie true. Cette requête DOIT être préparée. `try catch` nécessaire.
+- Modifier `thesectionDelete` dans `model\thesectionManager.php` pour supprimer une entrée dans la table `thesection` grâce à l'ID. En cas d'erreur ou pas d'article supprimé envoie false . En cas de succès envoie true. Cette requête DOIT être préparée. `try catch` nécessaire.
 
 ### Les vues
 
