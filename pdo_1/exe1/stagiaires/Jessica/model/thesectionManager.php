@@ -11,12 +11,12 @@
  */
 function thesectionSelectAll(PDO $con): array
 {
-    $pdo ="SELECT thesection, thesectiontitle
+    $a = $con->query("SELECT *
     FROM thesection
-    ORDER BY thesectiontitle ASC;";
-    return pdo_fetch_assoc(request);
+    ORDER BY thesectiontitle ASC;");
+    return $a->fetchAll(PDO::FETCH_ASSOC);
     // doit renvoyer un tableau si pas de résultats
-    return [];
+    //return [];
 }
 
 
@@ -103,7 +103,7 @@ function thesectionUpdate(PDO $con, int $id, string $title, string $desc): bool
  */
 function thesectionDelete(PDO $con, int $id): bool
 {
-  /*  $sql = pdo_prepare ($con,"DELETE FROM thesection WHERE idthesection=?");
+    /*  $sql = pdo_prepare ($con,"DELETE FROM thesection WHERE idthesection=?");
     pdo_stmt_bind_param($sql, "i", $idesection);*/
 
     // doit renvoyer false si le delete échoue

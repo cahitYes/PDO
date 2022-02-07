@@ -12,8 +12,8 @@
 function thesectionSelectAll(PDO $con): array
 {
     $sql = "SELECT * FROM thesection ORDER BY thesectiontitle ASC;";
-    $querySection = $db->query($sql);
-    echo $sql['thesection'];
+    $querySection = $con->query($sql);
+    return  $querySection->fetchAll();
     // doit renvoyer un tableau si pas de résultats
     return [];
 }

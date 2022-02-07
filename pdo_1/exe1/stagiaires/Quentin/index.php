@@ -33,6 +33,7 @@ if (
         if (!empty($title) && strlen($title) <= 70 && !empty($desc && strlen($desc) <= 240)) {
             if (thesectionInsert($db, $title, $desc)) {
                 header("Location: ./");
+                exit();
             } else {
                 $error = true;
             }
@@ -48,6 +49,7 @@ if (
             if (!empty($title) && strlen($title) <= 70 && !empty($desc && strlen($desc) <= 240) && $id == $_GET["update"]) {
                 if (thesectionUpdate($db, $id, $title, $desc)) {
                     header("Location: ./");
+                    die();
                 } else {
                     $error = true;
                 }
@@ -55,8 +57,9 @@ if (
                 $error = true;
             }
         }
-        $id = (int)$_GET["update"];
+
         if (ctype_digit($_GET["update"]) && $_GET["update"]) {
+            $id = (int)$_GET["update"];
             $section = thesectionSelectOneById($db, $id);
             if (empty($section)) {
                 include_once "./view/thesection404.php";
@@ -72,12 +75,14 @@ if (
             $id = (int) $_GET["delete"];
             if (thesectionDelete($db, $id)) {
                 header("Location: ./");
+                die();
             } else {
                 $error = true;
             }
         }
-        $id = (int)$_GET["delete"];
+
         if (ctype_digit($_GET["delete"]) && $_GET["delete"]) {
+            $id = (int)$_GET["delete"];
             $section = thesectionSelectOneById($db, $id);
             if (empty($section)) {
                 include_once "./view/thesection404.php";
