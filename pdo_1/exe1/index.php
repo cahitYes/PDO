@@ -23,9 +23,43 @@ try {
  * Routeur (index.php est l'unique contrôleur)
  */
 
+/**
+ * Ajout - Crud
+ */
+if (isset($_GET['add'])) {
 
-$allThesection = thesectionSelectAll($db);
 
-// var_dump($allThesection);
 
-include "view/thesectionHomePage.php";
+    include "view/thesectionAdd.php";
+
+
+    /**
+     * Modification - crUd
+     */
+} elseif (isset($_GET['update']) && ctype_digit($_GET['update'])) {
+
+
+    include "view/thesectionUpdate.php";
+
+
+    /**
+     * Suppression - cruD
+     */
+} elseif (isset($_GET['delete']) && ctype_digit($_GET['delete'])) {
+
+
+    include "view/thesectionDelete.php";
+
+
+    /**
+     * Homepage - cRud
+     */
+} else {
+
+
+    $allThesection = thesectionSelectAll($db);
+
+    // var_dump($allThesection);
+
+    include "view/thesectionHomePage.php";
+}
