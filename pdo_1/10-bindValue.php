@@ -161,8 +161,8 @@ require_once "connectPDO.php";
     </pre>
     <h3>PDOStatement::execute avec un tableau de valeurs</h3>
     <p>Ceci est le mode raccourci utilisant bindValue() de manière implicite, la variable, valeur ou fonction n'est pas liée comme référence et elle sera évaluée immédiatement avant l’ execute().</p>
-    <p>En génrél c'est le plus utilisé, il n'y a pas de vérification de type, il font donc les faire en amont</p>
-    <h4>N'empèche que les injections SQL et garde la requête en cache</h4>
+    <p>En général c'est le plus utilisé, il n'y a pas de vérification de type, il faut donc les faire en amont</p>
+    <h4>Il n'empêche que les injections SQL et garde la requête en cache</h4>
     <pre>
     // préparation de la requête avec des marqueurs nommés
     $prepare2 = $db->prepare("SELECT * FROM thearticle 

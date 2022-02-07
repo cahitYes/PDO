@@ -382,6 +382,36 @@ Ainsi, par exemple:
     $s->execute(); // exécute avec ‘WHERE age < 30’
     $c = $s->fetchAll(PDO::FETCH_ASSOC);
 
+### execute() avec un tableau de valeurs
+
+Ceci est le mode raccourci utilisant bindValue() de manière implicite, la variable, valeur ou fonction n'est pas liée comme référence et elle sera évaluée immédiatement avant l’ execute().
+En général c'est le plus utilisé, il n'y a pas de vérification de type, il faut donc les faire en amont. Il n'empêche que les injections SQL et garde la requête en cache.
+
+    // préparation de la requête avec des marqueurs nommés
+    $prepare2 = $db->prepare("SELECT * FROM thearticle
+    WHERE idthearticle
+    BETWEEN :debut AND :fin ORDER BY thearticletitle ASC");
+
+    $prepare2->execute(array(
+        'debut' => 5, // marqueur nommé comme clef, ! sans les ':'
+        'fin' => 10,
+    ));
+    $result4 = $prepare2->fetchAll(PDO::FETCH_OBJ);
+    var_dump($result4);
+
+    // préparation de la requête avec des ?
+    $prepare3 = $db->prepare("SELECT * FROM thearticle
+    WHERE idthearticle
+    BETWEEN ? AND ? ORDER BY thearticletitle ASC");
+
+    // on met les valeurs par ordre de lecture sans clef
+    $prepare3->execute([
+        10,
+        mt_rand(12, 18),
+    ]);
+    $result5 = $prepare3->fetchAll(PDO::FETCH_OBJ);
+    var_dump($result5);
+
 ## Pour obtenir une connexion persistante :
 
     $connexion = @new PDO($PARAM_DB.':host='.$PARAM_HOST.';port='.$PARAM_PORT.';

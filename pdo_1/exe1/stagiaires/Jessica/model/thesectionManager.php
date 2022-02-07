@@ -1,4 +1,4 @@
-mai<?php
+<?php
 
 /**
  * Fonction qui sélectionne tous les champs de la table `thesection` 
@@ -11,30 +11,12 @@ mai<?php
  */
 function thesectionSelectAll(PDO $con): array
 {
-<<<<<<< HEAD
-    // requete de type select non prepare
-    $result =$con->query("SELECT * FROM thesection ORDER BY thesectiontitle ASC");
-    // si on a au moin un resultat
-    if($result->rowCount()){
-        return $result->fetchAll(PDO::FETCH_ASSOC);}
-    else {
-        // doit renvoyer un tableau si pas de résultats
-        return [];
-    }
-  
-=======
-    // requête de type select non préparée
-    $result = $con->query("SELECT * FROM thesection ORDER BY thesectiontitle ASC");
-
-    // si on a au moins 1 résultat
-    if ($result->rowCount()) {
-        // envoi des résultats
-        return $result->fetchAll(PDO::FETCH_ASSOC);
-    } else {
-        // doit renvoyer un tableau si pas de résultats
-        return [];
-    }
->>>>>>> 0ebfbba2882f21dfdd7a65fc98eb58980638b651
+    $a = $con->query("SELECT *
+    FROM thesection
+    ORDER BY thesectiontitle ASC;");
+    return $a->fetchAll(PDO::FETCH_ASSOC);
+    // doit renvoyer un tableau si pas de résultats
+    //return [];
 }
 
 
@@ -45,13 +27,22 @@ function thesectionSelectAll(PDO $con): array
  * et un tableau associatif si on a un résultat.
  * Cette requête DOIT être préparée. try catch nécessaire!
  * 
+ *Modifier thesectionSelectOneById dans model\thesectionManager.php pour récupérer tous les champs de la table thesection grâce à son id dans un tableau associatif. En cas d'erreur ou pas d'article sélectionné renvoie un tableau vide. Cette requête DOIT être préparée. try catch nécessaire.
+ * 
  * @param \PDO $con
  * @param int $id
  * @return array
  */
 function thesectionSelectOneById(PDO $con, int $id): array
+/*$sql ="SELECT *
+    FROM thesection
+    WHERE idthesection = $id";
+
+$prepare =$con->prepare($sql)*/
+
 {
     // doit renvoyer un tableau si pas de résultats
+
     return [];
 }
 
@@ -112,6 +103,10 @@ function thesectionUpdate(PDO $con, int $id, string $title, string $desc): bool
  */
 function thesectionDelete(PDO $con, int $id): bool
 {
+    /*  $sql = pdo_prepare ($con,"DELETE FROM thesection WHERE idthesection=?");
+    pdo_stmt_bind_param($sql, "i", $idesection);*/
+
     // doit renvoyer false si le delete échoue
+
     return false;
 }
