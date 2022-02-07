@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
@@ -14,6 +14,13 @@
         <a href="./">Accueil</a> | <a href="./?add">Ajouter une section</a>
     </nav>
     <hr>
+    <?php
+    if (isset($error)) :
+    ?>
+        <h3>Pas encore de section a afficher</h3>
+    <?php
+    else :
+    ?>
     <table>
         <thead>
             <tr>
@@ -25,6 +32,9 @@
             </tr>
         </thead>
         <tbody>
+            <?php
+            foreach ($allThesection as $item) :
+                ?>
             <tr>
                 <td>1</td>
                 <td>titre 1</td>
@@ -32,6 +42,9 @@
                 <td><a href="./?update=1"><img src="https://raw.githubusercontent.com/WebDevCF2m2021/first-mvc-with-admin/main/public/img/update.png" alt="update" /></a></td>
                 <td><a href="./?delete=1"><img src="https://raw.githubusercontent.com/WebDevCF2m2021/first-mvc-with-admin/main/public/img/delete.png" alt="delete" /></a></td>
             </tr>
+            <?php
+            endforeach;
+            ?>
         </tbody>
     </table>
 
