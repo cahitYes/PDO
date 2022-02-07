@@ -39,11 +39,11 @@
                 foreach ($allThesection as $item) :
                 ?>
                     <tr>
-                        <td>1</td>
-                        <td>titre 1</td>
-                        <td>description 1</td>
-                        <td><a href="./?update=1"><img src="https://raw.githubusercontent.com/WebDevCF2m2021/first-mvc-with-admin/main/public/img/update.png" alt="update" /></a></td>
-                        <td><a href="./?delete=1"><img src="https://raw.githubusercontent.com/WebDevCF2m2021/first-mvc-with-admin/main/public/img/delete.png" alt="delete" /></a></td>
+                        <td><?= $item['idthesection'] ?></td>
+                        <td><?= $item['thesectiontitle'] ?></td>
+                        <td><?= $item['thesectiondesc'] ?></td>
+                        <td><a href="./?update=<?= $item['idthesection'] ?>"><img src="https://raw.githubusercontent.com/WebDevCF2m2021/first-mvc-with-admin/main/public/img/update.png" alt="update" /></a></td>
+                        <td><a href="./?delete=<?= $item['idthesection'] ?>"><img src="https://raw.githubusercontent.com/WebDevCF2m2021/first-mvc-with-admin/main/public/img/delete.png" alt="delete" /></a></td>
                     </tr>
                 <?php
                 endforeach;

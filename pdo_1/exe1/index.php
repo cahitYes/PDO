@@ -23,6 +23,7 @@ try {
  * Routeur (index.php est l'unique contrôleur)
  */
 
+
 $allThesection = thesectionSelectAll($db);
 
 // var_dump($allThesection);
