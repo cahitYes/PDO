@@ -11,18 +11,6 @@ mai<?php
  */
 function thesectionSelectAll(PDO $con): array
 {
-<<<<<<< HEAD
-    // requete de type select non prepare
-    $result =$con->query("SELECT * FROM thesection ORDER BY thesectiontitle ASC");
-    // si on a au moin un resultat
-    if($result->rowCount()){
-        return $result->fetchAll(PDO::FETCH_ASSOC);}
-    else {
-        // doit renvoyer un tableau si pas de résultats
-        return [];
-    }
-  
-=======
     // requête de type select non préparée
     $result = $con->query("SELECT * FROM thesection ORDER BY thesectiontitle ASC");
 
@@ -34,7 +22,6 @@ function thesectionSelectAll(PDO $con): array
         // doit renvoyer un tableau si pas de résultats
         return [];
     }
->>>>>>> 0ebfbba2882f21dfdd7a65fc98eb58980638b651
 }
 
 
