@@ -1,4 +1,4 @@
-<?php
+mai<?php
 
 /**
  * Fonction qui sélectionne tous les champs de la table `thesection` 
