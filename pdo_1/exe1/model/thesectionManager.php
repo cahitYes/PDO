@@ -128,8 +128,24 @@ function thesectionInsert(PDO $con, string $title, string $desc): bool
 function thesectionUpdate(PDO $con, int $id, string $title, string $desc): bool
 {
 
-    // doit renvoyer false si l'update échoue
-    return false;
+    $sql = "update thesection
+    set thesectiontitle=?,thesectiondesc=?
+    where  idthesection=?
+    
+    ";
+    $prepare = $con->prepare($sql);
+
+    try {
+        $prepare->execute([$title, $desc, $id]);
+        /*
+
+on est ICI
+        */
+        return true;
+    } catch (Exception $e) {
+        // doit renvoyer false si l'update échoue
+        return false;
+    }
 }
 
 
