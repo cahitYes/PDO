@@ -39,8 +39,31 @@ function thesectionSelectAll(PDO $con): array
  */
 function thesectionSelectOneById(PDO $con, int $id): array
 {
-    // doit renvoyer un tableau si pas de résultats
-    return [];
+    // préparation avec un marqueur non nommé (?)
+    $prepare = $con->prepare("SELECT * FROM thesection WHERE idthesection=?");
+
+    // essai
+    try {
+
+        // exécution
+        $prepare->execute([$id]);
+
+        // si on a récupéré un article (1== true)
+        if ($prepare->rowCount()) {
+
+            return $prepare->fetch(PDO::FETCH_ASSOC);
+        } else {
+            // doit renvoyer un tableau si pas de résultats
+            return [];
+        }
+
+
+        // erreur    
+    } catch (Exception $e) {
+        echo $e->getMessage();
+        // doit renvoyer un tableau si pas de résultats
+        return [];
+    }
 }
 
 
@@ -63,6 +86,7 @@ function thesectionInsert(PDO $con, string $title, string $desc): bool
     // préparation de la requête SQL avec des marqueurs nommés (avec :untext), règles identiques que le nommage de variables en PHP (et SQL)
     $sql = "INSERT INTO thesection (thesectiontitle,thesectiondesc) VALUES (:title, :sdesc)";
     // attribution de la variable $sql à notre connexion pour la requête préparée
+    // BUT : éviter les injection SQL
     $prepare = $con->prepare($sql);
 
     // attribution des valeurs avec bindParam
@@ -103,6 +127,7 @@ function thesectionInsert(PDO $con, string $title, string $desc): bool
  */
 function thesectionUpdate(PDO $con, int $id, string $title, string $desc): bool
 {
+
     // doit renvoyer false si l'update échoue
     return false;
 }
