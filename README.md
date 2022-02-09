@@ -1,5 +1,33 @@
+## Installation
+
+Importez en MariaDB sur wamp le fichier `datas\pdo_1_structure_datas.sql` en désactivant les clefs étrangères.
+
+## Fakerphp/faker
+
+Si vous souhaitez utiliser cet outil de génération de données (optionnel, la DB `pdo_1` étant prête à être manipulée)
+
+Installez d'abord composer :
+
+https://getcomposer.org/download/
+
+Puis dans l'invite de commande, installez les packages externes (création du dossier `vendor`) :
+
+    composer install
+
+Nous avons utilisé `fakerphp/faker` pour remplir nos bases de données.
+
+Documentation : https://fakerphp.github.io/
+
+Pour générer de nouvelles entrées dans `pdo_1` :
+
+Lancez `datas\insert-pdo_1.php`
+
+## Documentation
+
 # PDO ou PHP Data Objects
+
 ## Définition:
+
 PDO (PHP Data Objects), est une extension définissant l'interface pour accéder à une
 base de données en PHP.
 
@@ -39,24 +67,26 @@ requêtes évidemment !).
 
     // connexion
     $connexion = new
-    PDO($PARAM_DB.':host='.$PARAM_HOST.';port='.$PARAM_PORT.';dbname='. $PARAM_DBNAME;charse
-    t=’.$PARAM_CHARSET.’ , $PARAM_USER, $PARAM_PWD);
+    PDO($PARAM_DB.':host='.$PARAM_HOST.';port='.$PARAM_PORT.';dbname='. $PARAM_DBNAME.';charse
+    t='.$PARAM_CHARSET , $PARAM_USER, $PARAM_PWD);
     ?>
 
 ## Gestion des erreurs
-Vous pouvez avoir une erreur pour plusieurs raisons ; vous avez donné de mauvais paramètres, ou
+
+Vous pouvez avoir une erreur pour plusieurs raisons : vous avez donné de mauvais paramètres, ou
 vous avez spécifié des paramètres qui ne correspondent pas au driver que vous souhaitez utiliser.
-Afin de savoir d'où vient le problème, le mieux est encore d'afficher 'proprement' les erreurs qui peuvent
-apparaître.
+Afin de savoir d'où vient le problème, le mieux est encore d'afficher 'proprement' les erreurs qui peuvent apparaître.
+
 Nous allons utiliser try - catch pour cela.
 
     <?php
     try
     {
         $connexion = new
-    PDO($PARAM_DB.':host='.$PARAM_HOST.';port='.$PARAM_PORT.';dbname='.$PARAM_DBNAME;charse
-    t=’.$PARAM_CHARSET.’, $PARAM_USER, $PARAM_PWD);
-        // activation de l’affichage des erreurs
+    PDO($PARAM_DB.':host='.$PARAM_HOST.';port='.$PARAM_PORT.';dbname='.$PARAM_DBNAME.';charse
+    t='.$PARAM_CHARSET, $PARAM_USER, $PARAM_PWD);
+
+        // activation de l'affichage des erreurs POUR les requêtes SQL (pas pour les erreurs de connexion)
         $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
     catch(PDOException $e) // vous pouvez utiliser catch(Exception $e), qui gère également
@@ -65,7 +95,7 @@ Nous allons utiliser try - catch pour cela.
         echo 'Erreur : '.$e->getMessage().'<br />';
         echo 'N° : '.$e->getCode();
         die();
-    } 
+    }
     ?>
 
 ## Méthodes: exec et query
@@ -77,7 +107,7 @@ aussi d'effectuer des changements (qui peuvent prendre la forme d'ajout, suppres
 modification).
 
 Si vous souhaitez récupérer une information (SELECT), vous devrez alors utiliser 'query' ;
-si c'est pour un apporter des changements (INSERT, UPDATE, DELETE) à la BDD, vous
+si c'est pour apporter des changements (INSERT, UPDATE, DELETE) à la BDD, vous
 devrez utiliser 'exec'.
 
 ### Un simple UPDATE:
@@ -107,7 +137,6 @@ https://www.php.net/manual/fr/pdostatement.fetch.php
 **PDO::fetchAll**
 
 https://www.php.net/manual/fr/pdostatement.fetchall.php
-
 
     // mode tableau
     $resultats = $connexion->query("SELECT * FROM tabletest ORDER BY ladate DESC;");
@@ -154,8 +183,8 @@ https://www.php.net/manual/fr/pdostatement.fetchall.php
     }
     $resultats->closeCursor();
 
-
 ## Méthode: prepare
+
 La plupart des bases de données supportent le concept des requêtes préparées.
 Vous pouvez les voir comme une sorte de modèle compilé pour le SQL que vous voulez
 exécuter, qui peut être personnalisé en utilisant des variables en guise de paramètres.
@@ -168,16 +197,17 @@ Ces marqueurs ne sont pas mélangables : donc pour une même requête, il faut c
 l'une ou l'autre des options.
 
 Avantages de cette méthode :
-1) Optimisation des performances pour des requêtes appelées plusieurs fois ;
-2) protection des injections SQL (plus besoin de le faire manuellement, même si
-certains contrôles restent nécessaires pour une sécurité maximale) ;
+
+1. Optimisation des performances pour des requêtes appelées plusieurs fois ;
+2. protection des injections SQL (plus besoin de le faire manuellement, même si
+   certains contrôles restent nécessaires pour une sécurité maximale) ;
 
 https://www.php.net/manual/fr/pdo.prepare.php
 et
 https://www.php.net/manual/fr/pdostatement.execute.php
 
-
 ### Exemple 1
+
     // préparation de la requête
     $req = $connexion->prepare("SELECT prenom FROM tabletest");
 
@@ -191,16 +221,19 @@ La requête préparée ci-dessus utilise prepare() puis execute(), c'est le mini
 requête préparée
 
 ### Exemple 2
+
     // variables de test
     $an = 1985;
     $lettres = "%comme%";
+
     // préparation de la requête avec des emplacements nommés
     $req = $connexion->prepare("SELECT * FROM tabletest WHERE naissance < :annee AND
     lemessage LIKE :lettres ; ");
+
     // attribution après vérification de variables aux emplacements avec bindParam()
     $req->bindParam(':annee',$an,PDO::PARAM_INT); // doit être un entier
-    $req->bindParam(':lettres',$lettres,PDO::PARAM_STR);// doit être une chaîne de
-    caractère
+    $req->bindParam(':lettres',$lettres,PDO::PARAM_STR);// doit être une chaîne de caractère
+
     // exécution de celle-ci
     $req->execute();
     while($row = $req->fetch(PDO::FETCH_OBJ)){
@@ -213,7 +246,7 @@ nommés ( :emplacement). Les injections SQL ne sont pas possibles.
 
 ### Voici une liste des paramètres les plus usités avec bindParam():
 
-**PDO::PARAM_BOOL** 
+**PDO::PARAM_BOOL**
 Représente le type de données booléen.
 
 **PDO::PARAM_NULL**
@@ -232,6 +265,7 @@ transformé en int par PDO::PARAM_INT, si vous souhaitez éviter cela vous devez
 ctype_digit() ou d'autres fonctions de vérification)
 
 ### Exemple 3
+
     // variables de test
     $an = "1980";
     $lettres = "%et%";
@@ -262,6 +296,7 @@ de données, mais empêche les injections SQL.
 Les variables sont à mettre dans le même ordre que la requête.
 
 ### Exemple 4
+
     // variables de test
     $an = mt_rand(1900,2022);
     $lettres = "abceiop";
@@ -311,7 +346,9 @@ l’exécuter plusieures fois
 https://www.php.net/manual/fr/pdostatement.bindvalue.php
 
 Ainsi, par exemple:
+
 ### bindParam()
+
     $age = 20;
     $s = $dbh->prepare('SELECT name FROM students WHERE age < :age');
     // utilisez bindParam pour remplir une $variable
@@ -324,7 +361,9 @@ Ainsi, par exemple:
     $age = 30;
     $s->execute(); // exécute avec ‘WHERE age < 30’
     $c = $s->fetchAll(PDO::FETCH_ASSOC);
+
 ### bindValue()
+
     $age = 20;
     $s = $dbh->prepare('SELECT name FROM students WHERE age < :age');
     // utilisez bindValue pour remplir une valeur attribuée qu’une fois
@@ -342,6 +381,37 @@ Ainsi, par exemple:
     $s->bindValue(':age', $age, PDO::PARAM_INT);
     $s->execute(); // exécute avec ‘WHERE age < 30’
     $c = $s->fetchAll(PDO::FETCH_ASSOC);
+
+### execute() avec un tableau de valeurs
+
+Ceci est le mode raccourci utilisant bindValue() de manière implicite, la variable, valeur ou fonction n'est pas liée comme référence et elle sera évaluée immédiatement avant l’ execute().
+En général c'est le plus utilisé, il n'y a pas de vérification de type, il faut donc les faire en amont. Il n'empêche que les injections SQL et garde la requête en cache.
+
+    // préparation de la requête avec des marqueurs nommés
+    $prepare2 = $db->prepare("SELECT * FROM thearticle
+    WHERE idthearticle
+    BETWEEN :debut AND :fin ORDER BY thearticletitle ASC");
+
+    $prepare2->execute(array(
+        'debut' => 5, // marqueur nommé comme clef, ! sans les ':'
+        'fin' => 10,
+    ));
+    $result4 = $prepare2->fetchAll(PDO::FETCH_OBJ);
+    var_dump($result4);
+
+    // préparation de la requête avec des ?
+    $prepare3 = $db->prepare("SELECT * FROM thearticle
+    WHERE idthearticle
+    BETWEEN ? AND ? ORDER BY thearticletitle ASC");
+
+    // on met les valeurs par ordre de lecture sans clef
+    $prepare3->execute([
+        10,
+        mt_rand(12, 18),
+    ]);
+    $result5 = $prepare3->fetchAll(PDO::FETCH_OBJ);
+    var_dump($result5);
+
 ## Pour obtenir une connexion persistante :
 
     $connexion = @new PDO($PARAM_DB.':host='.$PARAM_HOST.';port='.$PARAM_PORT.';
@@ -414,7 +484,9 @@ En MySQL c’est le cas de l’InnoDB, pas du MyISAM !**
     }
 
 ## Méthodes les plus utiles de PDO
+
 ### Venant de la classe PDO :
+
 PDO::beginTransaction — Démarre une transaction
 
 PDO::commit — Valide une transaction
@@ -433,6 +505,7 @@ PDO::rollBack — Annule une transaction
 PDO::setAttribute — Configure un attribut PDO
 
 ### Venant de la classe PDOStatement :
+
 PDOStatement::bindParam — Lie un paramètre à un nom de variable spécifique
 
 PDOStatement::bindValue — Associe une valeur à un paramètre
@@ -456,10 +529,10 @@ PDOStatement::setFetchMode — Définit le mode de récupération par défaut po
 requête
 
 ### Venant de la classe PDOException (héritées de Exception) :
+
 Exception::getMessage — Récupère le message de l'exception
 
 Exception::getCode — Récupère le code de l'exception
-
 
 ## Pour en savoir plus sur la PDO :
 
@@ -478,8 +551,5 @@ https://www.php.net/manual/fr/pdo.drivers.php
 Tutoriel complet sur la PDO de developpez.com
 
 http://fmaz.developpez.com/tutoriels/php/comprendre-pdo/
-
-
-
 
 #### CF2m - Pitz Michaël - 2022
