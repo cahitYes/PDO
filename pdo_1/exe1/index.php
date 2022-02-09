@@ -37,9 +37,30 @@ if (isset($_GET['add'])) {
         $thesectiondesc = htmlspecialchars(strip_tags(trim($_POST['thesectiondesc'])), ENT_QUOTES);
 
         // si ils sont valides (pas vide et de longueur moindre que la maximale dans la DB)
-        if (!empty($thesectiontitle) && !empty($thesectiondesc)) {
+        if (
+            !empty($thesectiontitle)
+            && !empty($thesectiondesc)
+            && strlen($thesectiontitle) < 81
+            && strlen($thesectiondesc) < 256
+        ) {
+            // insertion dans la table
             $insertok = thesectionInsert($db, $thesectiontitle, $thesectiondesc);
+
+            // si réussite
+            if ($insertok) {
+                // redirection sur l'accueil
+                header("Location: ./");
+                die();
+            } else {
+                // affichage de l'erreur dans la vue
+                $error = 1;
+            }
+
             // var_dump($insertok);
+            // format d'un champs non valide    
+        } else {
+            // affichage de l'erreur dans la vue
+            $error = 1;
         }
     }
 
