@@ -18,6 +18,7 @@ function thesectionSelectAll(PDO $con): array
     if ($result->rowCount()) {
         // envoi des résultats
         return $result->fetchAll(PDO::FETCH_ASSOC);
+        // sinon rowCount vaut 0    
     } else {
         // doit renvoyer un tableau si pas de résultats
         return [];
@@ -59,8 +60,30 @@ function thesectionSelectOneById(PDO $con, int $id): array
  */
 function thesectionInsert(PDO $con, string $title, string $desc): bool
 {
-    // doit renvoyer false si l'insertion échoue
-    return false;
+    // préparation de la requête SQL avec des marqueurs nommés (avec :untext), règles identiques que le nommage de variables en PHP (et SQL)
+    $sql = "INSERT INTO thesection (thesectiontitle,thesectiondesc) VALUES (:title, :sdesc)";
+    // attribution de la variable $sql à notre connexion pour la requête préparée
+    $prepare = $con->prepare($sql);
+
+    // attribution des valeurs avec bindParam
+    $prepare->bindParam(':title', $title, PDO::PARAM_STR);
+    $prepare->bindParam(':sdesc', $desc, PDO::PARAM_STR);
+
+    // on essaie d'exécuter notre requête
+    try {
+
+        // exécution de le requête, en cas d'échec, arrêt du script à cette ligne et appel du catch
+        $prepare->execute();
+
+        // pas d'erreurs, donc oin renvoie true
+        return true;
+
+        // si on a une erreur on l'attrape
+    } catch (Exception $e) {
+        // echo $e->getMessage();
+        // doit renvoyer false si l'insertion échoue
+        return false;
+    }
 }
 
 

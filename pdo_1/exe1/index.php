@@ -28,8 +28,22 @@ try {
  */
 if (isset($_GET['add'])) {
 
+    #var_dump($_POST);
+    // si on a envoyé le formulaire
+    if (isset($_POST['thesectiontitle'], $_POST['thesectiondesc'])) {
 
+        // traitement des champs de formulaires
+        $thesectiontitle = htmlspecialchars(strip_tags(trim($_POST['thesectiontitle'])), ENT_QUOTES);
+        $thesectiondesc = htmlspecialchars(strip_tags(trim($_POST['thesectiondesc'])), ENT_QUOTES);
 
+        // si ils sont valides (pas vide et de longueur moindre que la maximale dans la DB)
+        if (!empty($thesectiontitle) && !empty($thesectiondesc)) {
+            $insertok = thesectionInsert($db, $thesectiontitle, $thesectiondesc);
+            // var_dump($insertok);
+        }
+    }
+
+    // la vue
     include "view/thesectionAdd.php";
 
 
@@ -54,9 +68,12 @@ if (isset($_GET['add'])) {
     /**
      * Homepage - cRud
      */
+
+    // pas de GET de routage    
 } else {
 
 
+    // chargement dans le modèle
     $allThesection = thesectionSelectAll($db);
 
     // var_dump($allThesection);

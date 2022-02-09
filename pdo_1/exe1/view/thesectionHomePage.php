@@ -15,7 +15,7 @@
     </nav>
     <hr>
     <?php
-    // pas encore de stions
+    // pas encore de sections
     if (empty($allThesection)) :
     ?>
         <h3>Pas encore de sections à afficher</h3>
