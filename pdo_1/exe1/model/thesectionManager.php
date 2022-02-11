@@ -38,9 +38,16 @@ function thesectionSelectAll(PDO $con): array
  */
 function thesectionSelectOneById(PDO $con, int $id): array
 {
-    // doit renvoyer un tableau si pas de résultats
-    return [];
-}
+    try {
+        $query = $con->prepare("SELECT * FROM thesection WHERE idthesection = ?;");
+        $query->bindParam(1, $id, PDO::PARAM_INT);
+        $query->execute();
+        $toReturn =  $query->fetch(PDO::FETCH_ASSOC);
+        $query->closeCursor();
+    } catch (Exception $e) {
+        $toReturn = [];
+    }
+    return $toReturn ? $toReturn : [];
 
 
 
@@ -59,10 +66,16 @@ function thesectionSelectOneById(PDO $con, int $id): array
  */
 function thesectionInsert(PDO $con, string $title, string $desc): bool
 {
-    // doit renvoyer false si l'insertion échoue
-    return false;
+    try {
+        $query = $con->prepare("INSERT INTO thesection (`thesectiontitle`,`thesectiondesc`) VALUES (?,?);");
+        $query->bindParam(1, $title, PDO::PARAM_STR);
+        $query->bindParam(2, $desc, PDO::PARAM_STR);
+        $toReturn =  $query->execute();
+    } catch (Exception $e) {
+        $toReturn = false;
+    }
+    return $toReturn;
 }
-
 
 /**
  * Fonction qui update 2 champs dans la table `thesection` quand l'id correspond
@@ -80,8 +93,16 @@ function thesectionInsert(PDO $con, string $title, string $desc): bool
  */
 function thesectionUpdate(PDO $con, int $id, string $title, string $desc): bool
 {
-    // doit renvoyer false si l'update échoue
-    return false;
+    try {
+        $query = $con->prepare("UPDATE thesection SET `thesectiontitle` =?,`thesectiondesc` =?) WHERE idthesection = ?;");
+        $query->bindParam(1, $title, PDO::PARAM_STR);
+        $query->bindParam(2, $desc, PDO::PARAM_STR);
+        $query->bindParam(3, $id, PDO::PARAM_STR);
+        $toReturn =  $query->execute();
+    } catch (Exception $e) {
+        $toReturn = false;
+    }
+    return $toReturn;
 }
 
 
@@ -101,4 +122,5 @@ function thesectionDelete(PDO $con, int $id): bool
 {
     // doit renvoyer false si le delete échoue
     return false;
+}
 }
