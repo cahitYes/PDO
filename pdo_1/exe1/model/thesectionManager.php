@@ -16,10 +16,16 @@ function thesectionSelectAll(PDO $con): array
 
     // si on a au moins 1 résultat
     if ($result->rowCount()) {
-        // envoi des résultats
-        return $result->fetchAll(PDO::FETCH_ASSOC);
+        // récupération des résultats
+        $return = $result->fetchAll(PDO::FETCH_ASSOC);
+        // respect de la portabilité du code
+        $result->closeCursor();
+        // envoi du résultat
+        return $return;
         // sinon rowCount vaut 0    
     } else {
+        // respect de la portabilité du code
+        $result->closeCursor();
         // doit renvoyer un tableau si pas de résultats
         return [];
     }
@@ -50,9 +56,15 @@ function thesectionSelectOneById(PDO $con, int $id): array
 
         // si on a récupéré un article (1== true)
         if ($prepare->rowCount()) {
-
-            return $prepare->fetch(PDO::FETCH_ASSOC);
+            // récupération de la valeur
+            $return = $prepare->fetch(PDO::FETCH_ASSOC);
+            // respect de la portabilité du code
+            $prepare->closeCursor();
+            // envoi du résultat
+            return $return;
         } else {
+            // respect de la portabilité du code
+            $prepare->closeCursor();
             // doit renvoyer un tableau si pas de résultats
             return [];
         }
@@ -136,11 +148,9 @@ function thesectionUpdate(PDO $con, int $id, string $title, string $desc): bool
     $prepare = $con->prepare($sql);
 
     try {
+        // prepare en mode raccourci (très courant) - équivalence au bindValue
         $prepare->execute([$title, $desc, $id]);
-        /*
-
-on est ICI
-        */
+        // si pas d'erreurs SQL, inutile dans ce cas de vérifier le nombre de ligne affacté, on peut immédiatement envoyer true
         return true;
     } catch (Exception $e) {
         // doit renvoyer false si l'update échoue

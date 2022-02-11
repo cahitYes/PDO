@@ -97,7 +97,9 @@ if (isset($_GET['add'])) {
             // on essaie de mettre à jour la section
             $updateok = thesectionUpdate($db, $idthesection, $thesectiontitle, $thesectiondesc);
 
-            var_dump($updateok);
+            // si la modification a réussi
+            header("location: ./");
+            exit;
         }
 
 
