@@ -150,7 +150,7 @@ function thesectionUpdate(PDO $con, int $id, string $title, string $desc): bool
     try {
         // prepare en mode raccourci (très courant) - équivalence au bindValue
         $prepare->execute([$title, $desc, $id]);
-        // si pas d'erreurs SQL, inutile dans ce cas de vérifier le nombre de ligne affacté, on peut immédiatement envoyer true
+        // si pas d'erreurs SQL, inutile dans ce cas de vérifier le nombre de lignes affectées, on peut immédiatement envoyer true
         return true;
     } catch (Exception $e) {
         // doit renvoyer false si l'update échoue
@@ -173,6 +173,16 @@ function thesectionUpdate(PDO $con, int $id, string $title, string $desc): bool
  */
 function thesectionDelete(PDO $con, int $id): bool
 {
-    // doit renvoyer false si le delete échoue
-    return false;
+    // requête préparée
+    $sql = "DELETE FROM thesection WHERE idthesection = ?";
+    $prepare = $con->prepare($sql);
+    try {
+        $prepare->execute([$id]);
+        // si pas d'erreurs SQL, inutile dans ce cas de vérifier le nombre de lignes affectées, on peut immédiatement envoyer true
+        return true;
+        // $e est une convention, on peut mettre ce que l'on veut, n'est plus obligatoire en PHP 8    
+    } catch (Exception $lulu) {
+        // doit renvoyer false si le delete échoue
+        return false;
+    }
 }

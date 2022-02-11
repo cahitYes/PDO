@@ -141,7 +141,15 @@ if (isset($_GET['add'])) {
 
     // si confirm existe (on veut supprimer!)
     if (isset($_GET['confirm'])) {
+        // suppression de la table
         $deleteOk = thesectionDelete($db, $idDelete);
+        // réussite
+        if ($deleteOk) {
+            header("location: ./");
+            exit;
+        }
+        // échec
+        $error = true;
     }
 
     // chargement de l'article via son id en tableau associatif
