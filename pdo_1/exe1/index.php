@@ -96,31 +96,36 @@ if (isset($_GET['add'])) {
 
             // on essaie de mettre à jour la section
             $updateok = thesectionUpdate($db, $idthesection, $thesectiontitle, $thesectiondesc);
-
-            // si la modification a réussi
-            header("location: ./");
-            exit;
+            // si la mise à jour a été effectuée
+            if ($updateok) {
+                // si la modification a réussi
+                header("location: ./");
+                exit;
+            }
+            // echec lors de la mise à jour
+            $error = true;
         }
-
-
-        // sinon affichage de l'article dans le formulaire    
-    } else {
-
-        // chargement de l'article via son id en tableau associatif
-        $recupThesection = thesectionSelectOneById($db, $id);
-
-        // si on ne récupère pas d'articles (tableau vide)
-        if (empty($recupThesection)) {
-            // appel de la vue 404
-            include "view/thesection404.php";
-            exit();
-        }
-
-        // var_dump($recupThesection);
-
-        // appel de la vue
-        include "view/thesectionUpdate.php";
     }
+
+
+    //affichage de l'article dans le formulaire    
+
+
+    // chargement de l'article via son id en tableau associatif
+    $recupThesection = thesectionSelectOneById($db, $id);
+
+    // si on ne récupère pas d'articles (tableau vide)
+    if (empty($recupThesection)) {
+        // appel de la vue 404
+        include "view/thesection404.php";
+        exit();
+    }
+
+    // var_dump($recupThesection);
+
+    // appel de la vue
+    include "view/thesectionUpdate.php";
+
 
     /**
      * Suppression - cruD
