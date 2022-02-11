@@ -16,9 +16,16 @@ function thesectionSelectAll(PDO $con): array
 
     // si on a au moins 1 résultat
     if ($result->rowCount()) {
-        // envoi des résultats
-        return $result->fetchAll(PDO::FETCH_ASSOC);
+        // récupération des résultats
+        $return = $result->fetchAll(PDO::FETCH_ASSOC);
+        // respect de la portabilité du code
+        $result->closeCursor();
+        // envoi du résultat
+        return $return;
+        // sinon rowCount vaut 0    
     } else {
+        // respect de la portabilité du code
+        $result->closeCursor();
         // doit renvoyer un tableau si pas de résultats
         return [];
     }
@@ -38,16 +45,38 @@ function thesectionSelectAll(PDO $con): array
  */
 function thesectionSelectOneById(PDO $con, int $id): array
 {
+    // préparation avec un marqueur non nommé (?)
+    $prepare = $con->prepare("SELECT * FROM thesection WHERE idthesection=?");
+
+    // essai
     try {
-        $query = $con->prepare("SELECT * FROM thesection WHERE idthesection = ?;");
-        $query->bindParam(1, $id, PDO::PARAM_INT);
-        $query->execute();
-        $toReturn =  $query->fetch(PDO::FETCH_ASSOC);
-        $query->closeCursor();
+
+        // exécution
+        $prepare->execute([$id]);
+
+        // si on a récupéré un article (1== true)
+        if ($prepare->rowCount()) {
+            // récupération de la valeur
+            $return = $prepare->fetch(PDO::FETCH_ASSOC);
+            // respect de la portabilité du code
+            $prepare->closeCursor();
+            // envoi du résultat
+            return $return;
+        } else {
+            // respect de la portabilité du code
+            $prepare->closeCursor();
+            // doit renvoyer un tableau si pas de résultats
+            return [];
+        }
+
+
+        // erreur    
     } catch (Exception $e) {
-        $toReturn = [];
+        echo $e->getMessage();
+        // doit renvoyer un tableau si pas de résultats
+        return [];
     }
-    return $toReturn ? $toReturn : [];
+}
 
 
 
@@ -66,15 +95,31 @@ function thesectionSelectOneById(PDO $con, int $id): array
  */
 function thesectionInsert(PDO $con, string $title, string $desc): bool
 {
+    // préparation de la requête SQL avec des marqueurs nommés (avec :untext), règles identiques que le nommage de variables en PHP (et SQL)
+    $sql = "INSERT INTO thesection (thesectiontitle,thesectiondesc) VALUES (:title, :sdesc)";
+    // attribution de la variable $sql à notre connexion pour la requête préparée
+    // BUT : éviter les injection SQL
+    $prepare = $con->prepare($sql);
+
+    // attribution des valeurs avec bindParam
+    $prepare->bindParam(':title', $title, PDO::PARAM_STR);
+    $prepare->bindParam(':sdesc', $desc, PDO::PARAM_STR);
+
+    // on essaie d'exécuter notre requête
     try {
-        $query = $con->prepare("INSERT INTO thesection (`thesectiontitle`,`thesectiondesc`) VALUES (?,?);");
-        $query->bindParam(1, $title, PDO::PARAM_STR);
-        $query->bindParam(2, $desc, PDO::PARAM_STR);
-        $toReturn =  $query->execute();
+
+        // exécution de le requête, en cas d'échec, arrêt du script à cette ligne et appel du catch
+        $prepare->execute();
+
+        // pas d'erreurs, donc oin renvoie true
+        return true;
+
+        // si on a une erreur on l'attrape
     } catch (Exception $e) {
-        $toReturn = false;
+        // echo $e->getMessage();
+        // doit renvoyer false si l'insertion échoue
+        return false;
     }
-    return $toReturn;
 }
 
 /**
@@ -93,16 +138,23 @@ function thesectionInsert(PDO $con, string $title, string $desc): bool
  */
 function thesectionUpdate(PDO $con, int $id, string $title, string $desc): bool
 {
+
+    $sql = "update thesection
+    set thesectiontitle=?,thesectiondesc=?
+    where  idthesection=?
+    
+    ";
+    $prepare = $con->prepare($sql);
+
     try {
-        $query = $con->prepare("UPDATE thesection SET `thesectiontitle` =?,`thesectiondesc` =?) WHERE idthesection = ?;");
-        $query->bindParam(1, $title, PDO::PARAM_STR);
-        $query->bindParam(2, $desc, PDO::PARAM_STR);
-        $query->bindParam(3, $id, PDO::PARAM_STR);
-        $toReturn =  $query->execute();
+        // prepare en mode raccourci (très courant) - équivalence au bindValue
+        $prepare->execute([$title, $desc, $id]);
+        // si pas d'erreurs SQL, inutile dans ce cas de vérifier le nombre de lignes affectées, on peut immédiatement envoyer true
+        return true;
     } catch (Exception $e) {
-        $toReturn = false;
+        // doit renvoyer false si l'update échoue
+        return false;
     }
-    return $toReturn;
 }
 
 
@@ -120,7 +172,16 @@ function thesectionUpdate(PDO $con, int $id, string $title, string $desc): bool
  */
 function thesectionDelete(PDO $con, int $id): bool
 {
-    // doit renvoyer false si le delete échoue
-    return false;
-}
+    // requête préparée
+    $sql = "DELETE FROM thesection WHERE idthesection = ?";
+    $prepare = $con->prepare($sql);
+    try {
+        $prepare->execute([$id]);
+        // si pas d'erreurs SQL, inutile dans ce cas de vérifier le nombre de lignes affectées, on peut immédiatement envoyer true
+        return true;
+        // $e est une convention, on peut mettre ce que l'on veut, n'est plus obligatoire en PHP 8    
+    } catch (Exception $lulu) {
+        // doit renvoyer false si le delete échoue
+        return false;
+    }
 }

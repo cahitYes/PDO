@@ -17,21 +17,21 @@
     <?php
     if (isset($error)) :
     ?>
-        <h3>Erreur lors de l'insertion, veuillez recommencer</h3>
+        <h3>Erreur lors de l'update, veuillez recommencer</h3>
     <?php
     endif;
     ?>
     <form name="updatethesection" method="POST" action="">
         <p>
-            <label for="thesectiontitle">thesectiontitle:</label> <input type="text" id="thesectiontitle" name="thesectiontitle" value="ici le titre à modifier" maxlength="70" required>
+            <label for="thesectiontitle">thesectiontitle:</label> <input type="text" id="thesectiontitle" name="thesectiontitle" value="<?= $recupThesection['thesectiontitle'] ?>" maxlength="70" required>
         </p>
         <p>
-            <label for="thesectiondesc">thesectiondesc:</label> <textarea id="thesectiondesc" name="thesectiondesc" maxlength="240" required>ici le texte à modifier</textarea>
+            <label for="thesectiondesc">thesectiondesc:</label> <textarea id="thesectiondesc" name="thesectiondesc" maxlength="240" required><?= $recupThesection['thesectiondesc'] ?></textarea>
         </p>
         <p>
             <label for="thesectiondesc">Modifier :</label> <input type="submit" value="modifier" />
         </p>
-        <input type="hidden" name="idthesection" value="ici l'id" required>
+        <input type="hidden" name="idthesection" value="<?= $recupThesection['idthesection'] ?>" required>
     </form>
 
 </body>
