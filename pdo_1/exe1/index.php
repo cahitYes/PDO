@@ -100,6 +100,7 @@ if (isset($_GET['add'])) {
             if ($updateok) {
                 // si la modification a réussi
                 header("location: ./");
+                // arrêt du script (qui permet également d'éviter 2 else)
                 exit;
             }
             // echec lors de la mise à jour
@@ -118,6 +119,7 @@ if (isset($_GET['add'])) {
     if (empty($recupThesection)) {
         // appel de la vue 404
         include "view/thesection404.php";
+        // arrêt du script ()
         exit();
     }
 
@@ -132,7 +134,27 @@ if (isset($_GET['add'])) {
      */
 } elseif (isset($_GET['delete']) && ctype_digit($_GET['delete'])) {
 
+    // traîtement de ma variable string vers int
+    $idDelete = (int) $_GET['delete'];
 
+    // var_dump($_GET);
+
+    // si confirm existe (on veut supprimer!)
+    if (isset($_GET['confirm'])) {
+        $deleteOk = thesectionDelete($db, $idDelete);
+    }
+
+    // chargement de l'article via son id en tableau associatif
+    $recupThesection = thesectionSelectOneById($db, $idDelete);
+
+    // si on ne récupère pas d'articles (tableau vide)
+    if (empty($recupThesection)) {
+        // appel de la vue 404
+        include "view/thesection404.php";
+        exit();
+    }
+
+    // appel de la vue
     include "view/thesectionDelete.php";
 
 
