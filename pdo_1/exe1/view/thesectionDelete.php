@@ -22,8 +22,8 @@
     endif;
     ?>
     <h4>Voulez-vous vraiment supprimer</h4>
-    <h3>ID - titre de la section</h3>
-    <h5><a href="?delete=ID_A_CHANGER&confirm">OUI</a> | <a href="./">NON</a></h5>
+    <h3><?= $recupThesection['idthesection'] ?> - <?= $recupThesection['thesectiontitle'] ?></h3>
+    <h5><a href="?delete=<?= $recupThesection['idthesection'] ?>&confirm">OUI</a> | <a href="./">NON</a></h5>
 
 </body>
 
