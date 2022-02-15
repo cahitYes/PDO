@@ -1,3 +1,5 @@
 datas/pdo_1.mwb.bak
 # on ne met jamais le vendor (bibliothèques externes inutiles à mettre sur github)
 vendor/
+.history
+pdo_1/exemple2/.history
