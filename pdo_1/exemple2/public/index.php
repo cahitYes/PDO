@@ -17,7 +17,7 @@ try {
     echo "<br>Message d'erreur : " . $e->getMessage();
 }
 
-// var_dump($db);
+//var_dump($db);
 
 /**
  * Routeur
@@ -27,4 +27,4 @@ try {
  * Nous ne sommes pas connectés
  */
 
- require_once "../controller/publicThearticleController.php";
+require_once "../controller/publicThearticleController.php";
