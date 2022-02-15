@@ -75,11 +75,6 @@
         },
         {
             "name": "psr/container",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 59969f6d9531e1cdb51315def481258d12d0e990
             "version": "2.0.2",
             "source": {
                 "type": "git",
@@ -94,32 +89,6 @@
             },
             "require": {
                 "php": ">=7.4.0"
-<<<<<<< HEAD
-=======
-            "version": "2.0.1",
-=======
-            "version": "2.0.2",
->>>>>>> 0ebfbba2882f21dfdd7a65fc98eb58980638b651
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-fig/container.git",
-                "reference": "c71ecc56dfe541dbd90c5360474fbc405f8d5963"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/container/zipball/c71ecc56dfe541dbd90c5360474fbc405f8d5963",
-                "reference": "c71ecc56dfe541dbd90c5360474fbc405f8d5963",
-                "shasum": ""
-            },
-            "require": {
-<<<<<<< HEAD
-                "php": ">=7.2.0"
->>>>>>> 42f58804df3f158f20796dde955eb9ab60018c38
-=======
-                "php": ">=7.4.0"
->>>>>>> 0ebfbba2882f21dfdd7a65fc98eb58980638b651
-=======
->>>>>>> 59969f6d9531e1cdb51315def481258d12d0e990
             },
             "type": "library",
             "extra": {
@@ -153,27 +122,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-fig/container/issues",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
                 "source": "https://github.com/php-fig/container/tree/2.0.2"
             },
             "time": "2021-11-05T16:47:00+00:00"
-=======
-                "source": "https://github.com/php-fig/container/tree/2.0.1"
-            },
-            "time": "2021-03-24T13:40:57+00:00"
->>>>>>> 42f58804df3f158f20796dde955eb9ab60018c38
-=======
-                "source": "https://github.com/php-fig/container/tree/2.0.2"
-            },
-            "time": "2021-11-05T16:47:00+00:00"
->>>>>>> 0ebfbba2882f21dfdd7a65fc98eb58980638b651
-=======
-                "source": "https://github.com/php-fig/container/tree/2.0.2"
-            },
-            "time": "2021-11-05T16:47:00+00:00"
->>>>>>> 59969f6d9531e1cdb51315def481258d12d0e990
         },
         {
             "name": "symfony/deprecation-contracts",
