@@ -38,7 +38,7 @@
     </div>
   </div>
 
-  <div class="container mt-4">
+  <div class="container">
     <div class="page-header" id="banner">
       <div class="row">
         <div class="col-lg-8 col-md-7 col-sm-6">
@@ -54,7 +54,7 @@
     </div>
   </div>
 
-  <div class="container mt-4">
+  <div class="container">
     <div class="bs-docs-section">
       <div class="row">
         <div class="col-lg-12">

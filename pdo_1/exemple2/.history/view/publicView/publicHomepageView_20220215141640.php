@@ -10,7 +10,7 @@
 </head>
 
 <body>
-  <div class="navbar navbar-expand-lg sticky-top navbar-light bg-light">
+  <div class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
     <div class="container">
       <a href="./" class="navbar-brand">Accueil</a>
       <ul class="navbar-nav me-auto">
@@ -38,7 +38,7 @@
     </div>
   </div>
 
-  <div class="container mt-4">
+  <div class="container">
     <div class="page-header" id="banner">
       <div class="row">
         <div class="col-lg-8 col-md-7 col-sm-6">
@@ -54,7 +54,8 @@
     </div>
   </div>
 
-  <div class="container mt-4">
+  <div class="container">
+
     <div class="bs-docs-section">
       <div class="row">
         <div class="col-lg-12">
@@ -68,16 +69,16 @@
       <div class="col-lg-12">
         <h2>List groups</h2>
       </div>
+
     </div>
-  </div>
 
-  <footer id="footer">
+    <footer id="footer">
 
-  </footer>
+    </footer>
 
 
-  <script src="js/jquery.min.js"></script>
-  <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
 
 </body>
 

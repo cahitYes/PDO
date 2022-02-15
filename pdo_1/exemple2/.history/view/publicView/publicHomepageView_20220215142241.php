@@ -54,7 +54,7 @@
     </div>
   </div>
 
-  <div class="container mt-4">
+  <div class="container">
     <div class="bs-docs-section">
       <div class="row">
         <div class="col-lg-12">
